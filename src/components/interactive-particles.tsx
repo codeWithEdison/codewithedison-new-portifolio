@@ -9,6 +9,8 @@ interface Particle {
   speedX: number;
   speedY: number;
   color: string;
+  opacity: number;
+  growing: boolean;
 }
 
 export function InteractiveParticles() {
@@ -34,11 +36,11 @@ export function InteractiveParticles() {
 
     // Initialize particles
     const initParticles = () => {
-      const particleCount = Math.min(Math.floor(window.innerWidth * 0.05), 100);
+      const particleCount = Math.min(Math.floor(window.innerWidth * 0.06), 120);
       particlesRef.current = [];
 
-      const lightColors = ['#E6F1FE', '#CCE3FD', '#99C8FB', '#66ACF9'];
-      const darkColors = ['#004693', '#005EC4', '#0075F5', '#3391F7'];
+      const lightColors = ['#E6F1FE', '#CCE3FD', '#99C8FB', '#66ACF9', '#a1c4fd', '#c2e9fb'];
+      const darkColors = ['#004693', '#005EC4', '#0075F5', '#3391F7', '#7F00FF', '#6a11cb'];
       
       const colors = theme === 'light' ? lightColors : darkColors;
 
@@ -46,10 +48,12 @@ export function InteractiveParticles() {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 1,
-          speedX: (Math.random() - 0.5) * 0.5,
-          speedY: (Math.random() - 0.5) * 0.5,
-          color: colors[Math.floor(Math.random() * colors.length)]
+          size: Math.random() * 4 + 1,
+          speedX: (Math.random() - 0.5) * 0.7,
+          speedY: (Math.random() - 0.5) * 0.7,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          opacity: Math.random() * 0.5 + 0.3,
+          growing: Math.random() > 0.5
         });
       }
     };
@@ -69,21 +73,40 @@ export function InteractiveParticles() {
           particle.speedY *= -1;
         }
 
+        // Pulse animation
+        if (particle.growing) {
+          particle.size += 0.03;
+          if (particle.size > 5) {
+            particle.growing = false;
+          }
+        } else {
+          particle.size -= 0.03;
+          if (particle.size < 1) {
+            particle.growing = true;
+          }
+        }
+
         // Gravitational pull to mouse
         const dx = mousePositionRef.current.x - particle.x;
         const dy = mousePositionRef.current.y - particle.y;
         const distance = Math.max(Math.sqrt(dx * dx + dy * dy), 50);
         
         // Apply gravitational pull
-        if (distance < 150) {
-          const forceX = dx / (distance * 8);
-          const forceY = dy / (distance * 8);
+        if (distance < 180) {
+          const forceX = dx / (distance * 7);
+          const forceY = dy / (distance * 7);
           particle.speedX += forceX;
           particle.speedY += forceY;
+          
+          // Increase opacity when near mouse
+          particle.opacity = Math.min(0.9, particle.opacity + 0.02);
+        } else {
+          // Decrease opacity when away from mouse
+          particle.opacity = Math.max(0.3, particle.opacity - 0.01);
         }
         
         // Limit speed
-        const maxSpeed = 2;
+        const maxSpeed = 2.5;
         const currentSpeed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
         if (currentSpeed > maxSpeed) {
           const ratio = maxSpeed / currentSpeed;
@@ -97,10 +120,14 @@ export function InteractiveParticles() {
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Draw particles
       particlesRef.current.forEach(particle => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
+        const rgbaColor = particle.color.startsWith('#') 
+          ? hexToRgba(particle.color, particle.opacity)
+          : particle.color;
+        ctx.fillStyle = rgbaColor;
         ctx.fill();
       });
 
@@ -112,10 +139,10 @@ export function InteractiveParticles() {
           const dy = particlesRef.current[i].y - particlesRef.current[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 100) {
+          if (distance < 120) {
             ctx.moveTo(particlesRef.current[i].x, particlesRef.current[i].y);
             ctx.lineTo(particlesRef.current[j].x, particlesRef.current[j].y);
-            const alpha = 1 - distance / 100;
+            const alpha = 1 - distance / 120;
             ctx.strokeStyle = theme === 'light' 
               ? `rgba(59, 130, 246, ${alpha * 0.2})` 
               : `rgba(96, 165, 250, ${alpha * 0.3})`;
@@ -124,6 +151,14 @@ export function InteractiveParticles() {
         }
       }
       ctx.stroke();
+    };
+
+    // Utility to convert hex to rgba
+    const hexToRgba = (hex: string, opacity: number) => {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
     };
 
     // Animation loop
@@ -168,7 +203,7 @@ export function InteractiveParticles() {
   return (
     <canvas 
       ref={canvasRef} 
-      className="fixed inset-0 pointer-events-none z-0 opacity-60"
+      className="fixed inset-0 pointer-events-none z-0 opacity-70"
     />
   );
 }

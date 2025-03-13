@@ -1,20 +1,21 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
-import { Menu, X } from 'lucide-react';
-import { useLanguage } from './language-provider';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from './theme-provider';
+import { Button } from './ui/button';
 
 export function Navigation() {
-  const { t } = useLanguage();
+  const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: t('home'), href: "#home" },
-    { name: t('about'), href: "#about" },
-    { name: t('skills'), href: "#skills" },
-    { name: t('projects'), href: "#projects" },
-    { name: t('contact'), href: "#contact" },
+    { name: 'Home', href: "#home" },
+    { name: 'About', href: "#about" },
+    { name: 'Skills', href: "#skills" },
+    { name: 'Projects', href: "#projects" },
+    { name: 'Contact', href: "#contact" },
   ];
 
   // Change navbar styling on scroll
@@ -31,6 +32,10 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
   return (
     <header className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 md:px-12",
@@ -45,7 +50,7 @@ export function Navigation() {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex space-x-8 items-center">
           {navItems.map((item) => (
             <a
               key={item.name}
@@ -55,20 +60,51 @@ export function Navigation() {
               {item.name}
             </a>
           ))}
+          
+          {/* Theme Toggle */}
+          <Button
+            onClick={toggleTheme}
+            variant="ghost"
+            size="icon"
+            className="rounded-full p-2 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5 text-yellow-400" />
+            ) : (
+              <Moon className="h-5 w-5 text-blue-600" />
+            )}
+          </Button>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-gray-700 dark:text-gray-300 focus:outline-none"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
-        >
-          {isMobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
-        </button>
+        {/* Mobile Menu Button and Theme Toggle */}
+        <div className="md:hidden flex items-center gap-2">
+          <Button
+            onClick={toggleTheme}
+            variant="ghost"
+            size="icon"
+            className="rounded-full p-2 bg-transparent"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5 text-yellow-400" />
+            ) : (
+              <Moon className="h-5 w-5 text-blue-600" />
+            )}
+          </Button>
+          
+          <button
+            className="text-gray-700 dark:text-gray-300 focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}

@@ -25,7 +25,7 @@ Visit the live site: [codewithedison.com](https://www.codewithedison.com)
 
 ## 🌟 Preview
 
-![Portfolio Preview](https://place-hold.it/1200x600/3060ff/ffffff&text=Portfolio+Preview)
+![Portfolio Preview](/public//codewithedison.png)
 
 ## 🛠️ Tech Stack
 

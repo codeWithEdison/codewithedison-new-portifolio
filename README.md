@@ -1,69 +1,127 @@
-# Welcome to your Lovable project
+# CodeWithEdison Portfolio
 
-## Project info
+![CodeWithEdison Banner](https://place-hold.it/800x200/3060ff/ffffff&text=CodeWithEdison&bold&fontsize=45)
 
-**URL**: https://lovable.dev/projects/dc1dd12a-7c92-4182-92a2-51f397c2542f
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?logo=vite)](https://vitejs.dev/)
 
-## How can I edit this code?
+## 🚀 About
 
-There are several ways of editing your application.
+Welcome to my professional portfolio website repository! This modern, responsive landing page showcases my expertise as a Computer Scientist, Fullstack Developer, Trainer/Mentor, and AI/Blockchain Enthusiast.
 
-**Use Lovable**
+Visit the live site: [codewithedison.com](https://www.codewithedison.com)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/dc1dd12a-7c92-4182-92a2-51f397c2542f) and start prompting.
+## ✨ Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Modern Tech Stack**: Built with React, TypeScript, and Tailwind CSS
+- **Responsive Design**: Seamlessly adapts to all device sizes
+- **Dark Mode**: Toggle between light and dark themes
+- **SEO Optimized**: Improved metadata, structured data, and technical SEO
+- **Performance Focused**: Fast load times and smooth animations
+- **Accessibility**: Built with web accessibility in mind
 
-**Use your preferred IDE**
+## 🌟 Preview
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+![Portfolio Preview](https://place-hold.it/1200x600/3060ff/ffffff&text=Portfolio+Preview)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🛠️ Tech Stack
 
-Follow these steps:
+- **Frontend Framework**: React with TypeScript
+- **Styling**: Tailwind CSS with ShadCN UI components
+- **Build Tool**: Vite
+- **Animations**: Framer Motion
+- **Deployment**: Vercel/Netlify
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 📋 Project Structure
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+codewithedison-new-portifolio/
+├── public/
+│   ├── favicon.ico
+│   ├── robots.txt
+│   └── sitemap.xml
+├── src/
+│   ├── components/
+│   │   ├── ui/
+│   │   └── sections/
+│   ├── pages/
+│   ├── assets/
+│   ├── styles/
+│   ├── utils/
+│   ├── App.tsx
+│   └── main.tsx
+├── scripts/
+│   └── generateSitemap.js
+└── package.json
 ```
 
-**Edit a file directly in GitHub**
+## 🚀 Getting Started
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
 
-**Use GitHub Codespaces**
+- Node.js 16+
+- npm or yarn
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Installation
 
-## What technologies are used for this project?
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/codeWithEdison/codewithedison-new-portifolio.git
+   cd codewithedison-new-portifolio
+   ```
 
-This project is built with .
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-## How can I deploy this project?
+4. Open [http://localhost:5173](http://localhost:8080) in your browser to see the result.
 
-Simply open [Lovable](https://lovable.dev/projects/dc1dd12a-7c92-4182-92a2-51f397c2542f) and click on Share -> Publish.
+## 📈 SEO Enhancements
 
-## I want to use a custom domain - is that possible?
+This portfolio implements industry-standard SEO best practices:
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+- Comprehensive meta tags and OpenGraph properties
+- JSON-LD structured data
+- Automated sitemap.xml generation
+- Proper semantic HTML structure
+- Optimized for social sharing
+
+Generate/update the sitemap:
+```bash
+npm run generate-sitemap
+```
+
+## 🧰 Development Tools
+
+- **Code Formatting**: ESLint and Prettier
+- **Git Hooks**: Husky and lint-staged
+- **Testing**: Vitest and React Testing Library
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Connect with Me
+
+- **LinkedIn**: [Edison Uwihanganye](https://www.linkedin.com/in/uwihanganye-edison-7b2970236/)
+- **GitHub**: [codeWithEdison](https://github.com/codeWithEdison)
+- **Twitter**: [@codewithedison](https://twitter.com/codewithedison)
+
+---
+
+<p align="center">
+  <sub>© 2025 Edison Uwihanganye. All Rights Reserved.</sub>
+</p>

@@ -84,13 +84,13 @@ export function ProjectsSection() {
     : projects.filter((project) => project.category === filter);
 
   return (
-    <section id="projects" className="py-24">
+    <section id="projects" className="py-24 dark:bg-gray-900">
       <div className="section-container">
         <div className="text-center mb-16">
-          <h2 className="text-sm uppercase tracking-widest text-blue-600 font-medium mb-3">Projects</h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-6">Featured Work</h3>
+          <h2 className="text-sm uppercase tracking-widest text-blue-600 dark:text-blue-400 font-medium mb-3">Projects</h2>
+          <h3 className="text-3xl md:text-4xl font-bold mb-6 dark:text-white">Featured Work</h3>
           <div className="max-w-3xl mx-auto">
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 dark:text-gray-300 text-lg">
               Explore some of my recent projects spanning enterprise systems, AI applications, and blockchain solutions.
             </p>
           </div>
@@ -103,8 +103,8 @@ export function ProjectsSection() {
               key={category}
               className={`px-4 py-2 rounded-full transition-all ${
                 filter === category
-                  ? "bg-blue-600 text-white shadow-md"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
+                  ? "bg-blue-600 text-white shadow-md dark:bg-blue-500"
+                  : "bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
               }`}
               onClick={() => setFilter(category)}
             >
@@ -195,16 +195,16 @@ export function ProjectsSection() {
         
         {/* Empty state */}
         {filteredProjects.length === 0 && (
-          <div className="text-center py-12 bg-gray-50 rounded-lg">
-            <p className="text-gray-500">No projects found in this category.</p>
+          <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <p className="text-gray-500 dark:text-gray-400">No projects found in this category.</p>
           </div>
         )}
         
-        {/* Project modal - in a real implementation, this would be a more sophisticated component */}
+        {/* Project modal - with dark mode support */}
         {selectedProject && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => setSelectedProject(null)}>
             <div 
-              className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-auto shadow-2xl"
+              className="bg-white dark:bg-gray-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-auto shadow-2xl dark:shadow-black/50"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative h-72">
@@ -224,19 +224,19 @@ export function ProjectsSection() {
               
               <div className="p-6">
                 <div className="mb-2">
-                  <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                     {selectedProject.category}
                   </span>
                 </div>
                 
-                <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-                <p className="text-gray-600 mb-6">{selectedProject.description}</p>
+                <h3 className="text-2xl font-bold mb-4 dark:text-white">{selectedProject.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">{selectedProject.description}</p>
                 
                 <div className="mb-6">
-                  <h4 className="font-medium mb-2">Technologies Used</h4>
+                  <h4 className="font-medium mb-2 dark:text-gray-200">Technologies Used</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.technologies.map((tech) => (
-                      <span key={tech} className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      <span key={tech} className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
                         {tech}
                       </span>
                     ))}
@@ -247,7 +247,7 @@ export function ProjectsSection() {
                   {selectedProject.githubUrl && (
                     <a 
                       href={selectedProject.githubUrl} 
-                      className="btn-outline flex items-center gap-2"
+                      className="btn-outline flex items-center gap-2 dark:text-gray-200 dark:border-gray-600 dark:hover:border-blue-400 dark:hover:text-blue-400"
                       target="_blank" 
                       rel="noopener noreferrer"
                     >

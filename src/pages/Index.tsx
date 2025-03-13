@@ -8,8 +8,8 @@ import { ProjectsSection } from '../components/projects-section';
 import { ContactSection } from '../components/contact-section';
 import { Footer } from '../components/footer';
 import { ThemeProvider } from '../components/theme-provider';
-import { LanguageProvider } from '../components/language-provider';
 import { InteractiveCursor } from '../components/interactive-cursor';
+import { InteractiveParticles } from '../components/interactive-particles';
 
 const Index = () => {
   // Intersection Observer for scroll animations
@@ -43,20 +43,19 @@ const Index = () => {
   }, []);
 
   return (
-    <LanguageProvider>
-      <ThemeProvider>
-        <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-          <InteractiveCursor />
-          <Navigation />
-          <HeroSection />
-          <AboutSection />
-          <SkillsSection />
-          <ProjectsSection />
-          <ContactSection />
-          <Footer />
-        </div>
-      </ThemeProvider>
-    </LanguageProvider>
+    <ThemeProvider>
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+        <InteractiveCursor />
+        <InteractiveParticles />
+        <Navigation />
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ContactSection />
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 };
 

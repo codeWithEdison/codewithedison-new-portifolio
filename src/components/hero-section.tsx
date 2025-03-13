@@ -1,14 +1,12 @@
 
 import React, { useEffect, useState, useRef } from 'react';
-import { ChevronDown, Moon, Sun, Languages } from 'lucide-react';
+import { ChevronDown, Moon, Sun } from 'lucide-react';
 import { GlassPanel } from './ui/glassmorphism';
 import { useTheme } from './theme-provider';
-import { useLanguage } from './language-provider';
 import { cn } from '@/lib/utils';
 
 export function HeroSection() {
   const { theme, toggleTheme } = useTheme();
-  const { language, setLanguage, t } = useLanguage();
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [text, setText] = useState("");
@@ -16,10 +14,10 @@ export function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   
   const roles = [
-    t('fullStackDeveloper'),
-    t('aiMlExpert'),
-    t('blockchainDeveloper'),
-    t('educatorMentor')
+    'Full Stack Developer',
+    'AI/ML Expert',
+    'Blockchain Developer',
+    'Educator & Mentor'
   ];
   
   const currentRole = roles[currentRoleIndex];
@@ -60,11 +58,6 @@ export function HeroSection() {
     }
   }, [text, isTyping, currentRole, roles]);
 
-  // Toggle language function
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'rw' : 'en');
-  };
-
   return (
     <section 
       ref={heroRef}
@@ -91,8 +84,8 @@ export function HeroSection() {
         }}
       ></div>
       
-      {/* Theme toggle and language selector */}
-      <div className="absolute top-24 right-6 z-30 flex gap-4">
+      {/* Theme toggle */}
+      <div className="absolute top-24 right-6 z-30">
         <button 
           onClick={toggleTheme}
           className="p-2 rounded-full bg-white/10 dark:bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors"
@@ -104,17 +97,6 @@ export function HeroSection() {
             <Sun size={20} className="text-gray-200" />
           )}
         </button>
-        
-        <button 
-          onClick={toggleLanguage}
-          className="p-2 rounded-full bg-white/10 dark:bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors"
-          aria-label="Change language"
-        >
-          <Languages size={20} className={cn(
-            "transition-colors",
-            theme === 'light' ? "text-gray-800" : "text-gray-200"
-          )} />
-        </button>
       </div>
       
       <div className="section-container">
@@ -123,11 +105,11 @@ export function HeroSection() {
             className="mb-6 px-4 py-1.5 animate-fade-in"
             intensity="light"
           >
-            <span className="text-blue-600 dark:text-blue-400 font-medium">{t('hello')}</span>
+            <span className="text-blue-600 dark:text-blue-400 font-medium">Hello, I'm Edison</span>
           </GlassPanel>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in [animation-delay:300ms] text-gray-900 dark:text-white">
-            {t('crafting')}
+            Crafting Digital Experiences & Building Enterprise Solutions
           </h1>
           
           <div className="h-16 flex items-center justify-center mb-8 animate-fade-in [animation-delay:600ms]">
@@ -139,10 +121,10 @@ export function HeroSection() {
           
           <div className="flex flex-col sm:flex-row gap-4 mt-6 animate-fade-in [animation-delay:900ms]">
             <a href="#projects" className="btn-primary bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600">
-              {t('viewMyWork')}
+              View My Work
             </a>
             <a href="#contact" className="btn-outline border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500 dark:border-gray-600 dark:text-gray-300 dark:hover:border-blue-400 dark:hover:text-blue-400">
-              {t('getInTouch')}
+              Get In Touch
             </a>
           </div>
           
@@ -166,7 +148,7 @@ export function HeroSection() {
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500 dark:text-gray-400 flex flex-col items-center"
         aria-label="Scroll to About section"
       >
-        <span className="text-sm mb-2">{t('scrollToExplore')}</span>
+        <span className="text-sm mb-2">Scroll to explore</span>
         <ChevronDown size={20} />
       </a>
     </section>

@@ -25,9 +25,9 @@ export function GlassPanel({
   
   // Configure background opacity
   const bgOpacity = {
-    light: "bg-white/10",
-    medium: "bg-white/20",
-    heavy: "bg-white/30",
+    light: "bg-white/10 dark:bg-white/5",
+    medium: "bg-white/20 dark:bg-white/10",
+    heavy: "bg-white/30 dark:bg-white/15",
   };
 
   return (

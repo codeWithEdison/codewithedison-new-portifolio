@@ -1,8 +1,10 @@
 
 import React from 'react';
 import { Heart } from 'lucide-react';
+import { useLanguage } from './language-provider';
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
   
   return (
@@ -13,29 +15,29 @@ export function Footer() {
             <h2 className="text-2xl font-bold heading-gradient">CodeWithEdison</h2>
           </div>
           
-          <div className="flex space-x-6 mb-8">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
             <a href="#home" className="text-gray-400 hover:text-white transition-colors">
-              Home
+              {t('home')}
             </a>
             <a href="#about" className="text-gray-400 hover:text-white transition-colors">
-              About
+              {t('about')}
             </a>
             <a href="#projects" className="text-gray-400 hover:text-white transition-colors">
-              Projects
+              {t('projects')}
             </a>
             <a href="#skills" className="text-gray-400 hover:text-white transition-colors">
-              Skills
+              {t('skills')}
             </a>
             <a href="#contact" className="text-gray-400 hover:text-white transition-colors">
-              Contact
+              {t('contact')}
             </a>
           </div>
           
-          <div className="flex items-center text-gray-400 text-sm">
-            <p>© {currentYear} Edison. All rights reserved.</p>
-            <span className="mx-2">|</span>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-0 text-gray-400 text-sm">
+            <p>© {currentYear} Edison. {t('allRightsReserved')}</p>
+            <span className="hidden md:block mx-2">|</span>
             <p className="flex items-center">
-              Made with <Heart size={14} className="mx-1 text-red-500" /> in Kigali
+              {t('madeWith')} <Heart size={14} className="mx-1 text-red-500" /> {t('inKigali')}
             </p>
           </div>
         </div>

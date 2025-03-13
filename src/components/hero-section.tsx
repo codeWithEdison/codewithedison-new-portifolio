@@ -1,20 +1,44 @@
 
-import React, { useEffect, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { ChevronDown, Moon, Sun, Languages } from 'lucide-react';
 import { GlassPanel } from './ui/glassmorphism';
-
-const roles = [
-  "Full Stack Developer",
-  "AI/ML Expert",
-  "Blockchain Developer",
-  "Educator & Mentor"
-];
+import { useTheme } from './theme-provider';
+import { useLanguage } from './language-provider';
+import { cn } from '@/lib/utils';
 
 export function HeroSection() {
+  const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [text, setText] = useState("");
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLElement>(null);
+  
+  const roles = [
+    t('fullStackDeveloper'),
+    t('aiMlExpert'),
+    t('blockchainDeveloper'),
+    t('educatorMentor')
+  ];
+  
   const currentRole = roles[currentRoleIndex];
+
+  // Handle mouse movement for interactive background
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!heroRef.current) return;
+      
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) - 0.5;
+      const y = ((e.clientY - rect.top) / rect.height) - 0.5;
+      
+      setMousePos({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   // Typewriter effect
   useEffect(() => {
@@ -34,17 +58,64 @@ export function HeroSection() {
         return () => clearTimeout(timeout);
       }
     }
-  }, [text, isTyping, currentRole]);
+  }, [text, isTyping, currentRole, roles]);
+
+  // Toggle language function
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'rw' : 'en');
+  };
 
   return (
-    <section id="home" className="relative min-h-screen pt-20 flex items-center justify-center overflow-hidden">
+    <section 
+      ref={heroRef}
+      id="home" 
+      className="relative min-h-screen pt-20 flex items-center justify-center overflow-hidden"
+    >
       {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 to-violet-50"></div>
-      <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:40px_40px]"></div>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background to-background/70 dark:from-gray-900 dark:to-gray-800"></div>
+      <div className="absolute inset-0 -z-10 opacity-30 dark:opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] dark:bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:40px_40px]"></div>
       
-      {/* Animated circles */}
-      <div className="absolute -z-10 top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-400/10 animate-float"></div>
-      <div className="absolute -z-10 bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-violet-400/10 animate-float [animation-delay:2s]"></div>
+      {/* Moving Blob Background */}
+      <div 
+        className="absolute -z-10 w-[500px] h-[500px] rounded-full bg-blue-400/10 dark:bg-violet-600/10 blur-3xl"
+        style={{ 
+          transform: `translate(${mousePos.x * 30}px, ${mousePos.y * 30}px)`,
+          transition: 'transform 0.2s ease-out'
+        }}
+      ></div>
+      <div 
+        className="absolute -z-10 w-[300px] h-[300px] rounded-full bg-violet-400/10 dark:bg-blue-600/10 blur-3xl"
+        style={{ 
+          transform: `translate(${mousePos.x * -50}px, ${mousePos.y * -50}px)`,
+          transition: 'transform 0.1s ease-out'
+        }}
+      ></div>
+      
+      {/* Theme toggle and language selector */}
+      <div className="absolute top-24 right-6 z-30 flex gap-4">
+        <button 
+          onClick={toggleTheme}
+          className="p-2 rounded-full bg-white/10 dark:bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors"
+          aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+        >
+          {theme === 'light' ? (
+            <Moon size={20} className="text-gray-800" />
+          ) : (
+            <Sun size={20} className="text-gray-200" />
+          )}
+        </button>
+        
+        <button 
+          onClick={toggleLanguage}
+          className="p-2 rounded-full bg-white/10 dark:bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors"
+          aria-label="Change language"
+        >
+          <Languages size={20} className={cn(
+            "transition-colors",
+            theme === 'light' ? "text-gray-800" : "text-gray-200"
+          )} />
+        </button>
+      </div>
       
       <div className="section-container">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
@@ -52,27 +123,39 @@ export function HeroSection() {
             className="mb-6 px-4 py-1.5 animate-fade-in"
             intensity="light"
           >
-            <span className="text-blue-600 font-medium">Hello, I'm Edison</span>
+            <span className="text-blue-600 dark:text-blue-400 font-medium">{t('hello')}</span>
           </GlassPanel>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in [animation-delay:300ms]">
-            Crafting Digital Experiences & Building Enterprise Solutions
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in [animation-delay:300ms] text-gray-900 dark:text-white">
+            {t('crafting')}
           </h1>
           
           <div className="h-16 flex items-center justify-center mb-8 animate-fade-in [animation-delay:600ms]">
-            <h2 className="text-xl md:text-2xl text-gray-700">
-              <span className="text-blue-600 font-semibold">{text}</span>
-              <span className="animate-blink border-r-2 border-blue-600 ml-1">&nbsp;</span>
+            <h2 className="text-xl md:text-2xl text-gray-700 dark:text-gray-300">
+              <span className="text-blue-600 dark:text-blue-400 font-semibold">{text}</span>
+              <span className="animate-blink border-r-2 border-blue-600 dark:border-blue-400 ml-1">&nbsp;</span>
             </h2>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 mt-6 animate-fade-in [animation-delay:900ms]">
-            <a href="#projects" className="btn-primary">
-              View My Work
+            <a href="#projects" className="btn-primary bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600">
+              {t('viewMyWork')}
             </a>
-            <a href="#contact" className="btn-outline">
-              Get In Touch
+            <a href="#contact" className="btn-outline border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500 dark:border-gray-600 dark:text-gray-300 dark:hover:border-blue-400 dark:hover:text-blue-400">
+              {t('getInTouch')}
             </a>
+          </div>
+          
+          {/* Interactive element - floating shapes */}
+          <div className="relative w-full h-24 mt-16 hidden md:block">
+            <div className="absolute left-1/4 w-12 h-12 bg-blue-500/20 dark:bg-blue-400/20 rounded-lg animate-float" 
+                style={{ animationDelay: '0s', animationDuration: '5s' }}></div>
+            <div className="absolute left-1/3 w-8 h-8 bg-violet-500/20 dark:bg-violet-400/20 rounded-full animate-float" 
+                style={{ animationDelay: '1s', animationDuration: '7s' }}></div>
+            <div className="absolute left-1/2 w-16 h-16 bg-indigo-500/20 dark:bg-indigo-400/20 rounded-lg rotate-45 animate-float" 
+                style={{ animationDelay: '2s', animationDuration: '6s' }}></div>
+            <div className="absolute left-2/3 w-10 h-10 bg-cyan-500/20 dark:bg-cyan-400/20 rounded-full animate-float" 
+                style={{ animationDelay: '1.5s', animationDuration: '6.5s' }}></div>
           </div>
         </div>
       </div>
@@ -80,10 +163,10 @@ export function HeroSection() {
       {/* Scroll indicator */}
       <a 
         href="#about" 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500 flex flex-col items-center"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500 dark:text-gray-400 flex flex-col items-center"
         aria-label="Scroll to About section"
       >
-        <span className="text-sm mb-2">Scroll to explore</span>
+        <span className="text-sm mb-2">{t('scrollToExplore')}</span>
         <ChevronDown size={20} />
       </a>
     </section>

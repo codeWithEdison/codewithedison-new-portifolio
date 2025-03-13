@@ -37,6 +37,36 @@
     
     --radius: 0.5rem;
   }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    
+    --accent: 266 83% 43%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
  
   * {
     @apply border-border;
@@ -59,7 +89,7 @@
 
 @layer components {
   .glass-effect {
-    @apply backdrop-blur-md bg-white/20 border border-white/20 shadow-lg;
+    @apply backdrop-blur-md bg-white/20 dark:bg-white/10 border border-white/20 shadow-lg;
   }
   
   .glass-card {
@@ -71,7 +101,7 @@
   }
   
   .heading-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-violet-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400;
   }
   
   .text-balance {
@@ -84,7 +114,7 @@
   }
   
   .nav-link::after {
-    @apply content-[''] absolute bg-blue-600 h-[2px] w-0 left-0 -bottom-1 rounded-full transition-all duration-300 ease-in-out;
+    @apply content-[''] absolute bg-blue-600 dark:bg-blue-400 h-[2px] w-0 left-0 -bottom-1 rounded-full transition-all duration-300 ease-in-out;
   }
   
   .nav-link:hover::after {
@@ -101,7 +131,7 @@
   }
   
   .btn-secondary {
-    @apply btn bg-white text-blue-600 border border-blue-200 hover:border-blue-300 hover:bg-blue-50 shadow-sm hover:shadow;
+    @apply btn bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/50 shadow-sm hover:shadow;
   }
   
   .btn-outline {
@@ -110,26 +140,26 @@
   
   /* Input styles */
   .input-field {
-    @apply w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500;
+    @apply w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 shadow-sm focus:border-blue-500 focus:ring-blue-500;
   }
   
   /* Card styles */
   .card {
-    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-100;
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-100 dark:border-gray-700;
   }
   
   /* Experience/education timeline */
   .timeline-item {
-    @apply relative pl-8 pb-12 border-l border-gray-200 last:border-0 last:pb-0;
+    @apply relative pl-8 pb-12 border-l border-gray-200 dark:border-gray-700 last:border-0 last:pb-0;
   }
   
   .timeline-dot {
-    @apply absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-blue-500 shadow-md;
+    @apply absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-blue-500 dark:bg-blue-400 shadow-md;
   }
   
   /* Skill badge */
   .skill-badge {
-    @apply px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800;
+    @apply px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
   }
   
   /* Project card */
@@ -139,7 +169,7 @@
   
   /* Focus outline for accessibility */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-offset-2;
   }
   
   /* Animations */
@@ -164,5 +194,30 @@
   
   .mask-linear-gradient {
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0));
+  }
+  
+  /* Dark mode glow effect */
+  .glow {
+    @apply relative;
+  }
+  
+  .glow::after {
+    @apply content-[''] absolute -z-10 inset-0 opacity-0 rounded-xl blur-xl transition-opacity duration-500;
+    background: radial-gradient(circle, rgba(120, 119, 198, 0.3) 0%, transparent 70%);
+  }
+  
+  .dark .glow:hover::after {
+    @apply opacity-100;
+  }
+}
+
+/* Custom cursor styles */
+.cursor-none * {
+  cursor: none !important;
+}
+
+@media (hover: hover) {
+  body:has(.custom-cursor-active) {
+    @apply cursor-none;
   }
 }

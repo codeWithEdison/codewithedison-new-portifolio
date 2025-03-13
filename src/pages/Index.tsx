@@ -7,7 +7,6 @@ import { SkillsSection } from '../components/skills-section';
 import { ProjectsSection } from '../components/projects-section';
 import { ContactSection } from '../components/contact-section';
 import { Footer } from '../components/footer';
-import { ThemeProvider } from '../components/theme-provider';
 import { InteractiveCursor } from '../components/interactive-cursor';
 import { InteractiveParticles } from '../components/interactive-particles';
 import { Button } from '../components/ui/button';
@@ -67,36 +66,34 @@ const Index = () => {
   };
 
   return (
-    <ThemeProvider>
-      <div className="min-h-screen bg-background text-foreground transition-colors duration-500">
-        <InteractiveCursor />
-        <InteractiveParticles />
-        <Navigation />
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ContactSection />
-        <Footer />
-        
-        {/* Scroll to top button */}
-        <div 
-          className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-            showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-500">
+      <InteractiveCursor />
+      <InteractiveParticles />
+      <Navigation />
+      <HeroSection />
+      <AboutSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <ContactSection />
+      <Footer />
+      
+      {/* Scroll to top button */}
+      <div 
+        className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <Button
+          onClick={scrollToTop}
+          size="icon"
+          variant="secondary"
+          className="rounded-full w-12 h-12 bg-primary/10 backdrop-blur-sm hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 shadow-lg group"
+          aria-label="Scroll to top"
         >
-          <Button
-            onClick={scrollToTop}
-            size="icon"
-            variant="secondary"
-            className="rounded-full w-12 h-12 bg-primary/10 backdrop-blur-sm hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 shadow-lg group"
-            aria-label="Scroll to top"
-          >
-            <ChevronUp className="h-6 w-6 text-primary group-hover:animate-bounce" />
-          </Button>
-        </div>
+          <ChevronUp className="h-6 w-6 text-primary group-hover:animate-bounce" />
+        </Button>
       </div>
-    </ThemeProvider>
+    </div>
   );
 };
 

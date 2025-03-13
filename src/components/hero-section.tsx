@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from 'react';
-import { ChevronDown, Moon, Sun } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { GlassPanel } from './ui/glassmorphism';
 import { useTheme } from './theme-provider';
 import { cn } from '@/lib/utils';
@@ -83,21 +83,6 @@ export function HeroSection() {
           transition: 'transform 0.1s ease-out'
         }}
       ></div>
-      
-      {/* Theme toggle */}
-      <div className="absolute top-24 right-6 z-30">
-        <button 
-          onClick={toggleTheme}
-          className="p-2 rounded-full bg-white/10 dark:bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors"
-          aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-        >
-          {theme === 'light' ? (
-            <Moon size={20} className="text-gray-800" />
-          ) : (
-            <Sun size={20} className="text-gray-200" />
-          )}
-        </button>
-      </div>
       
       <div className="section-container">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">

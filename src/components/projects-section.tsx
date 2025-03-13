@@ -74,24 +74,24 @@ type Project = {
 // Combine and normalize both project sets
 const combinedProjects: Project[] = [
   // Projects from first set
-  {
-    id: 1,
-    title: "IRIMS - Integrated Risk Management System",
-    category: "Enterprise",
-    description: "A comprehensive risk management platform for large organizations, featuring real-time analytics and compliance tracking.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    technologies: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
-    githubUrl: "https://github.com/codeWithEdison/irims",
-    liveUrl: "https://irims.example.com",
-    tags: ["Risk Management", "Analytics", "Enterprise"],
-    icon: FileStack,
-    highlight: true
-  },
+  // {
+  //   id: 1,
+  //   title: "IRIMS - Integrated Risk Management System",
+  //   category: "Enterprise",
+  //   description: "A comprehensive risk management platform for large organizations, featuring real-time analytics and compliance tracking.",
+  //   image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  //   technologies: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
+  //   githubUrl: "https://github.com/codeWithEdison/irims",
+  //   liveUrl: "https://irims.example.com",
+  //   tags: ["Risk Management", "Analytics", "Enterprise"],
+  //   icon: FileStack,
+  //   highlight: true
+  // },
   {
     id: 2,
-    title: "UR-AMS - University Resource Allocation System",
+    title: "UR-AMS - University  Asset Management  System",
     category: "Education",
-    description: "An AI-powered system for optimizing resource allocation across university departments, improving efficiency by 35%.",
+    description: "An  system for optimizing resource allocation across university departments, improving efficiency by 35%.",
     image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     technologies: ["Python", "TensorFlow", "Django", "React", "PostgreSQL"],
     githubUrl: "https://github.com/codeWithEdison/ur-ams",

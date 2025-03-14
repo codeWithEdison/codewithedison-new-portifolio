@@ -135,7 +135,7 @@ export function SkillsSection() {
                   }`}
                   style={{
                     boxShadow: hoveredSkill === skill.name ? `0 10px 25px -5px ${skill.color}33` : '',
-                    ringColor: skill.color
+                    // Removed ringColor property here
                   }}>
                     <div className="flex flex-col items-center text-center">
                       <div className="mb-4 relative">

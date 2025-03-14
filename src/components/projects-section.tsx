@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Layers, Music, Database, Home, Building, FileStack } from 'lucide-react';
 import { Helmet } from 'react-helmet';
 
-// Define the HeartPulse, Vote, Wallet, and TicketIcon components
 const HeartPulse = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
@@ -52,7 +51,6 @@ const X = (props) => (
   </svg>
 );
 
-// Create a combined and improved Project type
 type Project = {
   id?: number;
   title: string;
@@ -71,22 +69,7 @@ type Project = {
   highlight?: boolean;
 };
 
-// Combine and normalize both project sets
 const combinedProjects: Project[] = [
-  // Projects from first set
-  // {
-  //   id: 1,
-  //   title: "IRIMS - Integrated Risk Management System",
-  //   category: "Enterprise",
-  //   description: "A comprehensive risk management platform for large organizations, featuring real-time analytics and compliance tracking.",
-  //   image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-  //   technologies: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
-  //   githubUrl: "https://github.com/codeWithEdison/irims",
-  //   liveUrl: "https://irims.example.com",
-  //   tags: ["Risk Management", "Analytics", "Enterprise"],
-  //   icon: FileStack,
-  //   highlight: true
-  // },
   {
     id: 2,
     title: "UR-AMS - University  Asset Management  System",
@@ -112,8 +95,6 @@ const combinedProjects: Project[] = [
     icon: HeartPulse,
     highlight: true
   },
-  
-  // Add more from second list...
   {
     id: 4,
     title: "CareSphere DApp",
@@ -162,7 +143,6 @@ const combinedProjects: Project[] = [
   },
 ];
 
-// Derive categories from the projects
 const categories = ['All', ...Array.from(new Set(combinedProjects.map((project) => project.category)))].filter(Boolean);
 
 export function ProjectsSection() {
@@ -170,7 +150,6 @@ export function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Intersection Observer for scroll animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -196,7 +175,6 @@ export function ProjectsSection() {
 
   return (
     <>
-      {/* SEO metadata */}
       <Helmet>
         <title>Edison Uwihanganye's Projects - Fullstack Development, AI, Blockchain</title>
         <meta name="description" content="Explore Edison Uwihanganye's portfolio of projects spanning enterprise systems, healthcare applications, AI solutions, and blockchain innovation." />
@@ -234,7 +212,6 @@ export function ProjectsSection() {
             </div>
           </div>
           
-          {/* Category filters */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             {categories.map((category) => (
               <button
@@ -252,7 +229,6 @@ export function ProjectsSection() {
             ))}
           </div>
           
-          {/* Projects grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
               <div 
@@ -263,59 +239,52 @@ export function ProjectsSection() {
                 style={{ transitionDelay: `${index * 100}ms` }}
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="relative overflow-hidden rounded-lg shadow-lg">
-                  {/* Project image */}
+                <div className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
                   <img 
                     src={project.image} 
                     alt={`${project.title} - ${project.description}`} 
-                    className="w-full h-60 object-cover object-center transform transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-60 object-cover object-center transform transition-transform duration-700 group-hover:scale-110"
                     loading="lazy"
                   />
                   
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-70 transition-opacity group-hover:opacity-90"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/40 opacity-80 transition-opacity duration-300 group-hover:opacity-95"></div>
                   
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-blue-500 text-white">
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-blue-500/80 backdrop-blur-sm text-white">
                       {project.category}
                     </span>
                   </div>
 
-                  {/* Highlight badge */}
                   {project.highlight && (
-                    <div className="absolute top-4 right-4">
-                      <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-amber-500 text-white">
+                    <div className="absolute top-4 right-4 z-10">
+                      <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-amber-500/80 backdrop-blur-sm text-white">
                         Featured
                       </span>
                     </div>
                   )}
                   
-                  {/* Project info */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-all duration-500 z-10">
                     <h4 className="text-xl font-bold mb-2 text-shadow">{project.title}</h4>
-                    <p className="text-sm text-gray-200 line-clamp-2 mb-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100">
+                    <p className="text-sm text-gray-200 line-clamp-2 mb-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
                       {project.description}
                     </p>
                     
-                    {/* Tech stack */}
                     <div className="flex flex-wrap gap-2 mt-3">
                       {project.technologies.slice(0, 3).map((tech) => (
-                        <span key={tech} className="inline-block py-1 px-2 rounded text-xs font-medium bg-white/20 backdrop-blur-sm">
+                        <span key={tech} className="inline-block py-1 px-2 rounded text-xs font-medium bg-white/30 backdrop-blur-sm">
                           {tech}
                         </span>
                       ))}
                       {project.technologies.length > 3 && (
-                        <span className="inline-block py-1 px-2 rounded text-xs font-medium bg-white/20 backdrop-blur-sm">
+                        <span className="inline-block py-1 px-2 rounded text-xs font-medium bg-white/30 backdrop-blur-sm">
                           +{project.technologies.length - 3}
                         </span>
                       )}
                     </div>
                     
-                    {/* Action buttons */}
-                    <div className="flex gap-3 mt-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-200">
+                    <div className="flex gap-3 mt-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200">
                       <button 
-                        className="py-1.5 px-3 rounded-md bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-colors text-sm flex items-center gap-1.5"
+                        className="py-1.5 px-3 rounded-md bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-colors text-sm flex items-center gap-1.5"
                         aria-label="View project details"
                       >
                         <Layers size={14} />
@@ -324,7 +293,7 @@ export function ProjectsSection() {
                       {(project.githubUrl || project.links?.github) && (
                         <a 
                           href={project.githubUrl || project.links?.github} 
-                          className="p-1.5 rounded-md bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-colors"
+                          className="p-1.5 rounded-md bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-colors"
                           onClick={(e) => e.stopPropagation()}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -336,7 +305,7 @@ export function ProjectsSection() {
                       {(project.liveUrl || project.links?.live) && (
                         <a 
                           href={project.liveUrl || project.links?.live} 
-                          className="p-1.5 rounded-md bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-colors"
+                          className="p-1.5 rounded-md bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-colors"
                           onClick={(e) => e.stopPropagation()}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -352,24 +321,22 @@ export function ProjectsSection() {
             ))}
           </div>
           
-          {/* Empty state */}
           {filteredProjects.length === 0 && (
             <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <p className="text-gray-500 dark:text-gray-400">No projects found in this category.</p>
             </div>
           )}
           
-          {/* Project modal - with dark mode support */}
           {selectedProject && (
             <div 
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" 
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-300" 
               onClick={() => setSelectedProject(null)}
               role="dialog"
               aria-modal="true"
               aria-labelledby="project-modal-title"
             >
               <div 
-                className="bg-white dark:bg-gray-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-auto shadow-2xl dark:shadow-black/50"
+                className="bg-white/90 dark:bg-gray-800/90 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-auto shadow-2xl backdrop-blur-sm border border-white/20 dark:border-gray-700/30 transition-all duration-300"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative h-72">
@@ -378,43 +345,42 @@ export function ProjectsSection() {
                     alt={selectedProject.title} 
                     className="w-full h-full object-cover object-center"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
                   <button 
-                    className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full"
+                    className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
                     onClick={() => setSelectedProject(null)}
                     aria-label="Close modal"
                   >
                     <X size={16} />
                   </button>
-                </div>
-                
-                <div className="p-6">
-                  <div className="mb-2">
-                    <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                  <div className="absolute bottom-4 left-4">
+                    <span className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-blue-500/80 backdrop-blur-sm text-white">
                       {selectedProject.category}
                     </span>
                   </div>
-                  
+                </div>
+                
+                <div className="p-8">
                   <h3 id="project-modal-title" className="text-2xl font-bold mb-4 dark:text-white">{selectedProject.title}</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-6">{selectedProject.description}</p>
                   
                   <div className="mb-6">
-                    <h4 className="font-medium mb-2 dark:text-gray-200">Technologies Used</h4>
+                    <h4 className="font-medium mb-3 dark:text-gray-200">Technologies Used</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.technologies.map((tech) => (
-                        <span key={tech} className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                        <span key={tech} className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200">
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
                   
-                  {/* Tags section if available */}
                   {selectedProject.tags && selectedProject.tags.length > 0 && (
                     <div className="mb-6">
-                      <h4 className="font-medium mb-2 dark:text-gray-200">Tags</h4>
+                      <h4 className="font-medium mb-3 dark:text-gray-200">Tags</h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedProject.tags.map((tag) => (
-                          <span key={tag} className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                          <span key={tag} className="inline-block py-1 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700/60 dark:text-gray-200">
                             {tag}
                           </span>
                         ))}
@@ -422,7 +388,7 @@ export function ProjectsSection() {
                     </div>
                   )}
                   
-                  <div className="flex gap-4">
+                  <div className="flex flex-wrap gap-4 mt-6">
                     {(selectedProject.githubUrl || selectedProject.links?.github) && (
                       <a 
                         href={selectedProject.githubUrl || selectedProject.links?.github} 

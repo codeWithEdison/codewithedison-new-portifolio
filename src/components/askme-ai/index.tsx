@@ -1,4 +1,4 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef, useEffect } from 'react';
 import { Bot, MessageCircle, Send, User, X, Mic, Circle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 import { useTheme } from '@/components/theme-provider';
+import { aiService } from '@/services/aiService'; 
 
 type Message = {
   id: string;
@@ -24,27 +25,6 @@ const defaultMessages: Message[] = [
     timestamp: new Date(),
   },
 ];
-
-const generateResponse = async (question: string): Promise<string> => {
-  // This is a mock response - in a real application you would integrate with an AI API
-  await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
-  
-  const responses: Record<string, string> = {
-    default: "I'm Edison's AI assistant. I can tell you about his skills, projects, and background. What would you like to know?",
-    skills: "Edison is a skilled full-stack developer with expertise in React, Next.js, Node.js, and TypeScript. He also has experience in AI/ML, blockchain development, and is an educator & mentor.",
-    projects: "Edison has worked on various projects including enterprise solutions, web applications, and blockchain implementations. His portfolio showcases his diverse range of skills.",
-    background: "Edison is based in Kigali and has extensive experience in crafting digital experiences and building enterprise solutions.",
-    contact: "You can get in touch with Edison through the contact form on this website. He's always open to new opportunities and collaborations!",
-  };
-
-  // Simple keyword matching
-  if (question.toLowerCase().includes('skill')) return responses.skills;
-  if (question.toLowerCase().includes('project')) return responses.projects;
-  if (question.toLowerCase().includes('background') || question.toLowerCase().includes('experience')) return responses.background;
-  if (question.toLowerCase().includes('contact') || question.toLowerCase().includes('reach')) return responses.contact;
-  
-  return responses.default;
-};
 
 export const AskMeAI = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,13 +63,14 @@ export const AskMeAI = () => {
       timestamp: new Date(),
     };
     
-    setMessages(prev => [...prev, userMessage]);
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     setInput('');
     setIsLoading(true);
 
     try {
-      // Get AI response
-      const response = await generateResponse(input);
+      // Get AI response from our service instead of the mock function
+      const response = await aiService.generateResponse(updatedMessages);
       
       // Add AI message
       const aiMessage: Message = {
@@ -106,30 +87,72 @@ export const AskMeAI = () => {
         description: "Failed to get a response. Please try again.",
         variant: "destructive",
       });
+      console.error('AI response error:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleRecordVoice = () => {
-    // Mock voice recording functionality
-    if (isRecording) {
-      setIsRecording(false);
+  const handleRecordVoice = async () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       toast({
-        title: "Voice input captured",
-        description: "Voice recording is not yet fully implemented.",
+        title: "Not Supported",
+        description: "Speech recognition is not supported in your browser.",
+        variant: "destructive",
       });
-    } else {
-      setIsRecording(true);
-      toast({
-        title: "Recording started",
-        description: "Speak now... (Note: This is a demo feature)",
-      });
-      
-      // Mock recording ending after 3 seconds
-      setTimeout(() => {
+      return;
+    }
+
+    try {
+      if (isRecording) {
         setIsRecording(false);
-      }, 3000);
+        return;
+      }
+
+      setIsRecording(true);
+      
+      // Request microphone access
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      // Use Web Speech API
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        throw new Error("Speech recognition not supported");
+      }
+      
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(transcript);
+      };
+      
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error', event.error);
+        toast({
+          title: "Error",
+          description: `Failed to recognize speech: ${event.error}`,
+          variant: "destructive",
+        });
+        setIsRecording(false);
+      };
+      
+      recognition.onend = () => {
+        setIsRecording(false);
+      };
+      
+      recognition.start();
+    } catch (error) {
+      console.error('Voice recording error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to start voice recording. Please check microphone permissions.",
+        variant: "destructive",
+      });
+      setIsRecording(false);
     }
   };
 
@@ -297,3 +320,11 @@ export const AskMeAI = () => {
     </Sheet>
   );
 };
+
+// Add TypeScript types for the Speech Recognition API
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}

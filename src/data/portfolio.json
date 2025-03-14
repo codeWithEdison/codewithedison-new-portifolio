@@ -1,0 +1,152 @@
+{
+    "about": {
+      "bio": "I'm Edison Uwihanganye, a Computer Scientist and Fullstack Developer with expertise in modern web technologies, AI integration, and blockchain development. With over 5 years of experience building robust applications and mentoring developers, I combine technical excellence with a passion for teaching and innovation.",
+      "skills": [
+        "React.js", "Next.js", "TypeScript", "Node.js", "Express", "MongoDB", "PostgreSQL", 
+        "TailwindCSS", "Blockchain/Solidity", "Machine Learning", "Python", "AWS", "Docker"
+      ],
+      "education": [
+        {
+          "degree": "BSc in Computer Science",
+          "institution": "University of Rwanda",
+          "year": "2018"
+        },
+        {
+          "degree": "MSc in Artificial Intelligence",
+          "institution": "African Institute for Mathematical Sciences",
+          "year": "2020"
+        }
+      ],
+      "experience": [
+        {
+          "title": "Senior Frontend Developer",
+          "company": "TechInnovate Rwanda",
+          "period": "2021-Present",
+          "description": "Lead developer for enterprise web applications with Next.js, React, and TypeScript. Implemented AI-powered features and improved performance metrics by 40%."
+        },
+        {
+          "title": "Blockchain Developer",
+          "company": "AfriBlock Solutions",
+          "period": "2019-2021",
+          "description": "Developed smart contracts and DApps for financial inclusion projects. Created a blockchain education platform reaching over 1000 developers."
+        },
+        {
+          "title": "Fullstack Developer",
+          "company": "Digital Solutions Ltd",
+          "period": "2018-2019",
+          "description": "Built RESTful APIs with Node.js and Express. Developed frontend interfaces with React and implemented CI/CD pipelines."
+        }
+      ]
+    },
+    "projects": [
+      {
+        "title": "AI-Powered Learning Platform",
+        "description": "An adaptive learning platform that uses AI to personalize educational content based on student progress and learning patterns.",
+        "technologies": ["Next.js", "TypeScript", "TensorFlow.js", "MongoDB", "TailwindCSS"],
+        "url": "https://ai-learning-platform.com",
+        "github": "https://github.com/edison/ai-learning-platform",
+        "highlights": [
+          "Implemented adaptive learning algorithms that improved student completion rates by 35%",
+          "Built a real-time feedback system using WebSockets",
+          "Developed custom visualizations for learning analytics"
+        ]
+      },
+      {
+        "title": "Decentralized Marketplace",
+        "description": "A blockchain-based marketplace allowing artisans in Rwanda to sell directly to global customers without intermediaries.",
+        "technologies": ["Solidity", "React", "Ethers.js", "IPFS", "Node.js"],
+        "url": "https://rwandacraft-marketplace.io",
+        "github": "https://github.com/edison/dmarket",
+        "highlights": [
+          "Smart contracts for secure escrow and transparent transactions",
+          "Decentralized storage of product images and details using IPFS",
+          "Connected over 200 local artisans with international customers"
+        ]
+      },
+      {
+        "title": "Developer Portfolio Template",
+        "description": "An open-source, customizable portfolio template for developers built with Next.js and TailwindCSS.",
+        "technologies": ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
+        "url": "https://dev-portfolio-starter.vercel.app",
+        "github": "https://github.com/edison/dev-portfolio",
+        "highlights": [
+          "Optimized for performance with 98+ Lighthouse scores",
+          "Fully responsive with dark mode support",
+          "Used by over 500 developers worldwide"
+        ]
+      },
+      {
+        "title": "Health Monitoring System",
+        "description": "An IoT-based health monitoring system that collects patient data and provides real-time analytics for healthcare providers.",
+        "technologies": ["Python", "React", "TensorFlow", "AWS IoT", "MongoDB"],
+        "url": "https://health-monitor-demo.com",
+        "github": "https://github.com/edison/health-monitoring",
+        "highlights": [
+          "Machine learning models for predicting health anomalies",
+          "Real-time data visualization dashboard",
+          "Secure encryption for sensitive patient data"
+        ]
+      }
+    ],
+    "mentorship": {
+      "description": "As a passionate educator and mentor, I've guided over 500 developers through their coding journey, helping them build projects, master new technologies, and launch their careers in tech.",
+      "stats": [
+        {
+          "count": 500,
+          "description": "developers mentored"
+        },
+        {
+          "count": 25,
+          "description": "coding bootcamps facilitated"
+        },
+        {
+          "count": 120,
+          "description": "students who found tech jobs"
+        },
+        {
+          "count": 45,
+          "description": "open-source contributors trained"
+        }
+      ],
+      "testimonials": [
+        {
+          "name": "Diane Mukasine",
+          "role": "Frontend Developer",
+          "comment": "Edison's mentorship transformed my career. His clear explanations and practical projects helped me land my first developer job within 3 months."
+        },
+        {
+          "name": "Jean Paul Habimana",
+          "role": "Blockchain Developer",
+          "comment": "Learning blockchain development seemed impossible until I joined Edison's program. His step-by-step approach made complex concepts accessible."
+        },
+        {
+          "name": "Grace Uwamahoro",
+          "role": "Full Stack Developer",
+          "comment": "Edison doesn't just teach code, he teaches problem-solving. The skills I gained from his mentorship have been invaluable throughout my tech career."
+        }
+      ]
+    },
+    "contact": {
+      "email": "edison@codewithedisoninc.com",
+      "phone": "+250 788 123 456",
+      "location": "Kigali, Rwanda",
+      "socials": [
+        {
+          "platform": "GitHub",
+          "url": "https://github.com/codewithedisoninc"
+        },
+        {
+          "platform": "LinkedIn",
+          "url": "https://linkedin.com/in/edisonuwihanganye"
+        },
+        {
+          "platform": "Twitter",
+          "url": "https://twitter.com/codewithedisoninc"
+        },
+        {
+          "platform": "YouTube",
+          "url": "https://youtube.com/c/codewithedisoninc"
+        }
+      ]
+    }
+  }

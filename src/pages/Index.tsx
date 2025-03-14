@@ -11,6 +11,7 @@ import { InteractiveCursor } from '../components/interactive-cursor';
 import { InteractiveParticles } from '../components/interactive-particles';
 import { Button } from '../components/ui/button';
 import { ChevronUp } from 'lucide-react';
+import { AskMeAI } from '../components/askme-ai';
 
 const Index = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -76,6 +77,9 @@ const Index = () => {
       <ProjectsSection />
       <ContactSection />
       <Footer />
+      
+      {/* Ask Me AI Component */}
+      <AskMeAI />
       
       {/* Scroll to top button */}
       <div 

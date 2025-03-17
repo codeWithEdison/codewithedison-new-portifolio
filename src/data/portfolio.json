@@ -127,25 +127,21 @@
       ]
     },
     "contact": {
-      "email": "edison@codewithedisoninc.com",
-      "phone": "+250 788 123 456",
+      "email": "edsnkvn@gmail.com", 
+      "phone": "+250 788 240 303",
       "location": "Kigali, Rwanda",
       "socials": [
         {
           "platform": "GitHub",
-          "url": "https://github.com/codewithedisoninc"
+          "url": "https://github.com/codeWithEdison"
         },
         {
           "platform": "LinkedIn",
-          "url": "https://linkedin.com/in/edisonuwihanganye"
+          "url": "https://www.linkedin.com/in/uwihanganye-edison-7b2970236/"
         },
         {
           "platform": "Twitter",
-          "url": "https://twitter.com/codewithedisoninc"
-        },
-        {
-          "platform": "YouTube",
-          "url": "https://youtube.com/c/codewithedisoninc"
+          "url": "https://twitter.com/codewithedison"
         }
       ]
     }

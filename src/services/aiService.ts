@@ -1,5 +1,5 @@
-// src/services/aiService.ts
-import { ApiMessage, Message } from '../types/message';
+
+import { ApiMessage, Message } from '@/types/message';
 import { portfolioService } from './portfolioService';
 import { config } from '@/config/env';
 import { OpenAI } from 'openai';

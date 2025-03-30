@@ -4,6 +4,7 @@ import { portfolioService } from './portfolioService';
 
 // Hugging Face API key - replace with your actual key
 const HUGGING_FACE_API_KEY = "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";
+  
 // Model to use - this is a good open-source alternative to GPT models
 const MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.2";
 

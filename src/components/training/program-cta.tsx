@@ -65,7 +65,7 @@ export const ProgramCta = () => {
                       <Calendar className="h-5 w-5 text-blue-500" />
                       <div>
                         <p className="font-medium">Start Date</p>
-                        <p className="text-sm text-muted-foreground">July 1, 2024</p>
+                        <p className="text-sm text-muted-foreground">may 1, 2025</p>
                       </div>
                     </div>
                     
@@ -73,7 +73,7 @@ export const ProgramCta = () => {
                       <Clock className="h-5 w-5 text-blue-500" />
                       <div>
                         <p className="font-medium">Application Deadline</p>
-                        <p className="text-sm text-muted-foreground">June 15, 2024</p>
+                        <p className="text-sm text-muted-foreground">may 15, 2025</p>
                       </div>
                     </div>
                     

@@ -49,7 +49,7 @@ export const ProgramHero = () => {
 
             <div className="pt-3">
               <p className="text-sm text-muted-foreground">
-                Next cohort starts on <span className="font-medium text-foreground">July 1, 2024</span>
+                Next cohort starts on <span className="font-medium text-foreground">may 1, 2025</span>
               </p>
             </div>
           </div>

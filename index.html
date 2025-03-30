@@ -69,6 +69,14 @@
         ]
       }
     </script>
+    <script>
+      if (window.location.pathname.includes('/training')) {
+        document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://www.codewithedison.com/training');
+        document.querySelector('meta[property="og:title"]').setAttribute('content', 'Fullstack Web Development Training | CodeWithEdison - 3-Month Program');
+        document.querySelector('meta[property="og:description"]').setAttribute('content', 'Comprehensive 3-month Fullstack Web Development program priced at 600,000 RWF. Learn HTML, CSS, JavaScript, React, Node.js through hands-on projects with personalized mentoring.');
+        document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://www.codewithedison.com/training-og-image.png');
+      }
+    </script> 
   </head>
 
   <body>

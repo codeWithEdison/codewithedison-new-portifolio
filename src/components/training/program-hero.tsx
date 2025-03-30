@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { GlassCard } from '@/components/ui/glassmorphism';
-import { Calendar, Clock, MapPin, GraduationCap, Users, Layers } from 'lucide-react';
+import { Calendar, Clock, Laptop, GraduationCap, Layers, User } from 'lucide-react';
 
 export const ProgramHero = () => {
   return (
@@ -23,19 +23,21 @@ export const ProgramHero = () => {
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
                 Full-Stack Web Development
-                <span className="heading-gradient block">Accelerated Program</span>
+                <span className="heading-gradient block">Individual Program</span>
               </h1>
             </div>
 
             <p className="text-lg text-muted-foreground max-w-xl">
-              Become a job-ready full-stack developer in just 3 months with our intensive, project-based 
-              curriculum that covers modern web technologies from HTML & CSS to React, Node.js, and beyond.
+              Become a job-ready full-stack developer in just 3 months with Edison's intensive, personalized 
+              training program. Covers modern web technologies from HTML & CSS to React, Node.js, and beyond.
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="gap-2">
-                <GraduationCap className="h-5 w-5" />
-                Enroll Now
+              <Button size="lg" className="gap-2" asChild>
+                <a href="#apply">
+                  <GraduationCap className="h-5 w-5" />
+                  Apply Now
+                </a>
               </Button>
               <Button size="lg" variant="outline" className="gap-2" asChild>
                 <a href="#curriculum">
@@ -72,33 +74,35 @@ export const ProgramHero = () => {
                   <Clock className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="font-medium">Schedule</p>
-                    <p className="text-sm text-muted-foreground">3 days per week, 3-4 hours per session</p>
+                    <p className="text-sm text-muted-foreground">3 days per week, 2 hours per session</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-blue-500" />
+                  <Laptop className="h-5 w-5 text-blue-500" />
                   <div>
-                    <p className="font-medium">Location</p>
-                    <p className="text-sm text-muted-foreground">Kigali, Rwanda & Remote options available</p>
+                    <p className="font-medium">Format</p>
+                    <p className="text-sm text-muted-foreground">100% Online, interactive sessions</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Users className="h-5 w-5 text-blue-500" />
+                  <User className="h-5 w-5 text-blue-500" />
                   <div>
-                    <p className="font-medium">Class Size</p>
-                    <p className="text-sm text-muted-foreground">Limited to 15 students for personalized attention</p>
+                    <p className="font-medium">Training Type</p>
+                    <p className="text-sm text-muted-foreground">Individual program with personalized attention</p>
                   </div>
                 </div>
               </div>
 
               <div className="mt-8">
-                <Button className="w-full" size="lg">
-                  Reserve Your Spot
+                <Button className="w-full" size="lg" asChild>
+                  <a href="#apply">
+                    Reserve Your Spot
+                  </a>
                 </Button>
                 <p className="text-xs text-center mt-3 text-muted-foreground">
-                  Limited seats available. Payment plans available.
+                  Limited spots available. Flexible payment plans available.
                 </p>
               </div>
             </GlassCard>

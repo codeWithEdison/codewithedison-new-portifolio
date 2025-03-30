@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { GlassPanel } from '@/components/ui/glassmorphism';
-import { ArrowRight, Calendar, Clock, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, CheckCircle2, User, Laptop } from 'lucide-react';
 
 export const ProgramCta = () => {
   return (
@@ -24,8 +24,8 @@ export const ProgramCta = () => {
                 </h2>
                 
                 <p className="text-muted-foreground text-lg">
-                  Join our comprehensive 3-month program and transform from beginner 
-                  to job-ready full-stack developer with expert guidance every step of the way.
+                  Join Edison's comprehensive 3-month individual training program and transform from beginner 
+                  to job-ready full-stack developer with personalized guidance every step of the way.
                 </p>
                 
                 <div className="space-y-3">
@@ -39,24 +39,26 @@ export const ProgramCta = () => {
                   </div>
                   <div className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <p>Receive career support and connect with hiring partners</p>
+                    <p>Get personalized feedback and guidance</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <p>Join a community of developers for ongoing support</p>
+                    <p>Receive ongoing support and mentorship</p>
                   </div>
                 </div>
                 
                 <div className="pt-2">
-                  <Button size="lg" className="gap-2 text-base">
-                    Apply Now <ArrowRight className="h-4 w-4" />
+                  <Button size="lg" className="gap-2 text-base" asChild>
+                    <a href="#apply">
+                      Apply Now <ArrowRight className="h-4 w-4" />
+                    </a>
                   </Button>
                 </div>
               </div>
               
               <div>
                 <Card className="p-6 border border-border/50 shadow-sm">
-                  <h3 className="text-xl font-semibold mb-4">Upcoming Cohort Details</h3>
+                  <h3 className="text-xl font-semibold mb-4">Program Details</h3>
                   
                   <div className="space-y-4 mb-6">
                     <div className="flex items-center gap-3">
@@ -74,6 +76,22 @@ export const ProgramCta = () => {
                         <p className="text-sm text-muted-foreground">June 15, 2024</p>
                       </div>
                     </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <User className="h-5 w-5 text-blue-500" />
+                      <div>
+                        <p className="font-medium">Training Format</p>
+                        <p className="text-sm text-muted-foreground">Individual online sessions</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <Laptop className="h-5 w-5 text-blue-500" />
+                      <div>
+                        <p className="font-medium">Schedule</p>
+                        <p className="text-sm text-muted-foreground">3 days/week, 2 hours/session</p>
+                      </div>
+                    </div>
                   </div>
                   
                   <div className="rounded-md p-4 bg-secondary/30 mb-5">
@@ -86,8 +104,12 @@ export const ProgramCta = () => {
                   </div>
                   
                   <div className="space-y-3">
-                    <Button className="w-full" size="lg">Apply Now</Button>
-                    <Button variant="outline" className="w-full" size="lg">Request Information</Button>
+                    <Button className="w-full" size="lg" asChild>
+                      <a href="#apply">Apply Now</a>
+                    </Button>
+                    <Button variant="outline" className="w-full" size="lg" asChild>
+                      <a href="#curriculum">View Curriculum</a>
+                    </Button>
                   </div>
                 </Card>
               </div>

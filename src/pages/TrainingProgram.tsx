@@ -1,17 +1,13 @@
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Navigation } from '../components/navigation';
 import { Footer } from '../components/footer';
-import { Button } from '../components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import { Badge } from '../components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
-import { Progress } from '../components/ui/progress';
 import { ProgramCurriculumTabs } from '../components/training/program-curriculum-tabs';
 import { ProgramHero } from '../components/training/program-hero';
 import { ProgramFeatures } from '../components/training/program-features';
 import { ProgramFaq } from '../components/training/program-faq';
 import { ProgramCta } from '../components/training/program-cta';
+import { ProgramApplicationForm } from '../components/training/program-application-form';
 import { AskMeAI } from '../components/askme-ai';
 
 const TrainingProgram = () => {
@@ -39,6 +35,25 @@ const TrainingProgram = () => {
           </div>
           
           <ProgramCurriculumTabs />
+        </div>
+      </section>
+      
+      {/* Application Form Section */}
+      <section id="apply" className="py-20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 heading-gradient">
+              Apply Now
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Take the first step towards your development career. This is an individual online training program 
+              designed and delivered by Edison UWIHANGANYE (CodeWithEdison), consisting of 2-hour sessions, 3 days per week.
+            </p>
+          </div>
+          
+          <div className="max-w-3xl mx-auto">
+            <ProgramApplicationForm />
+          </div>
         </div>
       </section>
       

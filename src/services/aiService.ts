@@ -2,11 +2,9 @@
 import { ApiMessage, Message } from '../types/message';
 import { portfolioService } from './portfolioService';
 
-// Hugging Face API key - replace with your actual key
-const HUGGING_FACE_API_KEY = "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";
-  
-// Model to use - this is a good open-source alternative to GPT models
-const MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.2";
+// Get API key and model name from environment variables
+const HUGGING_FACE_API_KEY = import.meta.env.VITE_HUGGING_FACE_API_KEY;
+const MODEL_NAME = import.meta.env.VITE_MODEL_NAME || "mistralai/Mistral-7B-Instruct-v0.2";
 
 class AiService {
   /**

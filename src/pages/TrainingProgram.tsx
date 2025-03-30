@@ -30,7 +30,8 @@ const TrainingProgram = () => {
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Our carefully structured program combines theoretical knowledge with hands-on projects
-              to ensure you gain practical skills demanded by the industry.
+              to ensure you gain practical skills demanded by the industry. The program spans 16 weeks, 
+              with the final 4 weeks dedicated to the capstone project.
             </p>
           </div>
           

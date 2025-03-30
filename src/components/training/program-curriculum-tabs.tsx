@@ -1,23 +1,16 @@
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { CalendarDays, Code, FileCode, Layers, Monitor, Server, Braces, Workflow, Database, ShieldCheck, GitBranch, Rocket } from 'lucide-react';
+import { CalendarDays, Code, FileCode, Layers, Monitor, Server, Braces, Workflow, Database, ShieldCheck, GitBranch, Rocket, ChevronDown, ChevronUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const ProgramCurriculumTabs = () => {
   return (
-    <Tabs defaultValue="month1" className="w-full max-w-5xl mx-auto">
-      <TabsList className="grid w-full grid-cols-3 mb-8">
-        <TabsTrigger value="month1" className="text-sm sm:text-base py-3">Month 1: Frontend</TabsTrigger>
-        <TabsTrigger value="month2" className="text-sm sm:text-base py-3">Month 2: Backend</TabsTrigger>
-        <TabsTrigger value="month3" className="text-sm sm:text-base py-3">Month 3: Full-Stack</TabsTrigger>
-      </TabsList>
-      
-      <TabsContent value="month1" className="space-y-4">
-        <h3 className="text-xl font-semibold text-center mb-6">Modern Frontend Foundations</h3>
-        
-        <WeekCard 
+    <div className="w-full max-w-5xl mx-auto">
+      <Accordion type="single" collapsible className="w-full">
+        {/* Week 1 */}
+        <WeekAccordionItem
           weekNumber={1}
           title="Web Fundamentals & Modern HTML/CSS"
           description="Master the fundamentals of modern web development with HTML5 and CSS3"
@@ -30,7 +23,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["HTML5", "CSS3", "Semantic HTML", "Flexbox", "Grid"]}
         />
         
-        <WeekCard 
+        {/* Week 2 */}
+        <WeekAccordionItem
           weekNumber={2}
           title="Modern CSS Frameworks & Tools"
           description="Learn utility-first CSS with Tailwind and preprocessing with SASS"
@@ -43,7 +37,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["Tailwind CSS", "SASS", "Styled-components"]}
         />
         
-        <WeekCard 
+        {/* Week 3 */}
+        <WeekAccordionItem
           weekNumber={3}
           title="JavaScript Fundamentals & ES6+"
           description="Master modern JavaScript features and DOM manipulation"
@@ -55,7 +50,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["JavaScript", "ES6+", "DOM API", "Local Storage"]}
         />
         
-        <WeekCard 
+        {/* Week 4 */}
+        <WeekAccordionItem
           weekNumber={4}
           title="Advanced JavaScript & Introduction to TypeScript"
           description="Learn advanced JS concepts and start with TypeScript"
@@ -66,12 +62,9 @@ export const ProgramCurriculumTabs = () => {
           task="Convert the task management app from Week 3 to TypeScript, adding proper typing, interfaces, and implementing more advanced features like categories and priority levels."
           technologies={["TypeScript", "OOP", "Functional Programming"]}
         />
-      </TabsContent>
-      
-      <TabsContent value="month2" className="space-y-4">
-        <h3 className="text-xl font-semibold text-center mb-6">Frontend Frameworks & Backend Foundations</h3>
         
-        <WeekCard 
+        {/* Week 5 */}
+        <WeekAccordionItem
           weekNumber={5}
           title="React Fundamentals"
           description="Master the fundamentals of React and building component-based UIs"
@@ -83,7 +76,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["React", "JSX", "Hooks", "React Router"]}
         />
         
-        <WeekCard 
+        {/* Week 6 */}
+        <WeekAccordionItem
           weekNumber={6}
           title="Advanced React & State Management"
           description="Learn advanced React patterns and global state management"
@@ -95,7 +89,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["Redux Toolkit", "useContext", "useReducer", "RTK Query"]}
         />
         
-        <WeekCard 
+        {/* Week 7 */}
+        <WeekAccordionItem
           weekNumber={7}
           title="Backend Fundamentals with Node.js"
           description="Start building server-side applications with Node.js and Express"
@@ -107,7 +102,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["Node.js", "Express.js", "RESTful APIs", "Middleware"]}
         />
         
-        <WeekCard 
+        {/* Week 8 */}
+        <WeekAccordionItem
           weekNumber={8}
           title="Databases & ORM"
           description="Learn database design and ORM patterns with Prisma"
@@ -118,12 +114,9 @@ export const ProgramCurriculumTabs = () => {
           task="Extend the API from Week 7 by connecting it to a PostgreSQL database using Prisma, implementing complex data relationships, and adding pagination/filtering capabilities."
           technologies={["PostgreSQL", "MongoDB", "Prisma", "Database Design"]}
         />
-      </TabsContent>
-      
-      <TabsContent value="month3" className="space-y-4">
-        <h3 className="text-xl font-semibold text-center mb-6">Full-Stack Integration & Advanced Topics</h3>
         
-        <WeekCard 
+        {/* Week 9 */}
+        <WeekAccordionItem
           weekNumber={9}
           title="Authentication & Security"
           description="Implement secure authentication and proper security measures"
@@ -135,7 +128,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["JWT", "OAuth 2.0", "HTTPS", "CORS", "Security"]}
         />
         
-        <WeekCard 
+        {/* Week 10 */}
+        <WeekAccordionItem
           weekNumber={10}
           title="Full-Stack Integration"
           description="Connect frontend and backend with modern patterns and Next.js"
@@ -147,7 +141,8 @@ export const ProgramCurriculumTabs = () => {
           technologies={["Next.js", "React Query", "React Hook Form", "Full-Stack"]}
         />
         
-        <WeekCard 
+        {/* Week 11 */}
+        <WeekAccordionItem
           weekNumber={11}
           title="DevOps & Deployment"
           description="Learn deployment workflows, containerization, and CI/CD"
@@ -160,24 +155,40 @@ export const ProgramCurriculumTabs = () => {
           technologies={["Git", "GitHub Actions", "Docker", "Vercel", "Railway"]}
         />
         
-        <WeekCard 
+        {/* Week 12 */}
+        <WeekAccordionItem
           weekNumber={12}
-          title="Final Project & Portfolio Enhancement"
-          description="Build an industry-level project integrating all skills"
+          title="Advanced Topics & Project Planning"
+          description="Explore advanced concepts and plan your final project"
           topics={[
             { icon: <Workflow size={20} />, text: "Industry Project Structure" },
             { icon: <Rocket size={20} />, text: "Performance Optimization" }
           ]}
-          task="Complete a comprehensive full-stack application that demonstrates all the skills learned throughout the course."
+          task="Create a comprehensive plan for your final project including wireframes, component structure, database schema, and API endpoints."
           technologies={["Next.js", "Prisma", "Docker", "CI/CD", "Storybook"]}
         />
-      </TabsContent>
-    </Tabs>
+        
+        {/* Week 13-16: Final Project */}
+        <WeekAccordionItem
+          weekNumber={"13-16"}
+          title="Final Project Implementation"
+          description="Build a full-scale application from start to finish"
+          topics={[
+            { icon: <Code size={20} />, text: "Frontend Implementation" },
+            { icon: <Server size={20} />, text: "Backend & Database" },
+            { icon: <Rocket size={20} />, text: "Testing & Deployment" },
+            { icon: <Workflow size={20} />, text: "Final Presentation & Portfolio" }
+          ]}
+          task="Complete a comprehensive full-stack application that demonstrates all the skills learned throughout the course. This includes Next.js frontend, Node.js backend with Prisma, authentication, testing, and cloud deployment."
+          technologies={["React/Next.js", "Node.js", "Prisma", "TypeScript", "Tailwind CSS", "Testing", "CI/CD", "Docker"]}
+        />
+      </Accordion>
+    </div>
   );
 };
 
-interface WeekCardProps {
-  weekNumber: number;
+interface WeekAccordionItemProps {
+  weekNumber: number | string;
   title: string;
   description: string;
   topics: { icon: React.ReactNode; text: string }[];
@@ -185,17 +196,23 @@ interface WeekCardProps {
   technologies: string[];
 }
 
-const WeekCard = ({ weekNumber, title, description, topics, task, technologies }: WeekCardProps) => {
+const WeekAccordionItem = ({ weekNumber, title, description, topics, task, technologies }: WeekAccordionItemProps) => {
   return (
-    <Card className="transition-all duration-200 hover:shadow-md overflow-hidden group border border-border/50 bg-card">
-      <CardHeader className="bg-gradient-to-r from-accent/10 to-primary/5 dark:from-accent/5 dark:to-primary/10 relative overflow-hidden">
-        <Badge variant="outline" className="absolute top-3 right-4 bg-background/50 backdrop-blur-sm">
-          Week {weekNumber}
-        </Badge>
-        <CardTitle className="text-xl">{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="pt-6">
+    <AccordionItem value={`week-${weekNumber}`} className="border border-border/50 rounded-lg mb-4 overflow-hidden">
+      <AccordionTrigger className="px-6 py-4 bg-gradient-to-r from-accent/10 to-primary/5 dark:from-accent/5 dark:to-primary/10 hover:no-underline group">
+        <div className="flex items-center justify-between w-full text-left">
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="bg-background/50 backdrop-blur-sm">
+              Week {weekNumber}
+            </Badge>
+            <div>
+              <h3 className="text-lg font-medium">{title}</h3>
+              <p className="text-sm text-muted-foreground">{description}</p>
+            </div>
+          </div>
+        </div>
+      </AccordionTrigger>
+      <AccordionContent className="px-6 py-4 bg-card">
         <div className="space-y-2 mb-6">
           {topics.map((topic, index) => (
             <div key={index} className="flex items-start gap-2">
@@ -215,7 +232,7 @@ const WeekCard = ({ weekNumber, title, description, topics, task, technologies }
             <Badge key={index} variant="secondary" className="bg-secondary/50">{tech}</Badge>
           ))}
         </div>
-      </CardContent>
-    </Card>
+      </AccordionContent>
+    </AccordionItem>
   );
 };

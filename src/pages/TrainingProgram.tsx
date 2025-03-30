@@ -9,10 +9,12 @@ import { ProgramFaq } from '../components/training/program-faq';
 import { ProgramCta } from '../components/training/program-cta';
 import { ProgramApplicationForm } from '../components/training/program-application-form';
 import { AskMeAI } from '../components/askme-ai';
+import TrainingPageMeta from '@/components/training/TrainingPageMeta';
 
 const TrainingProgram = () => {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-500">
+      <TrainingPageMeta />
       <Navigation />
       
       {/* Hero Section */}

@@ -73,7 +73,7 @@ export const ProgramCta = () => {
                       <Clock className="h-5 w-5 text-blue-500" />
                       <div>
                         <p className="font-medium">Application Deadline</p>
-                        <p className="text-sm text-muted-foreground">may 15, 2025</p>
+                        <p className="text-sm text-muted-foreground">april 15, 2025</p>
                       </div>
                     </div>
                     

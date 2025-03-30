@@ -16,7 +16,7 @@ export function Navigation() {
     { name: 'About', href: "/#about" },
     { name: 'Skills', href: "/#skills" },
     { name: 'Projects', href: "/#projects" },
-    { name: 'Training', href: "/training" },
+    { name: 'Training', href: "/training" }, // Ensure no trailing slash
     { name: 'Contact', href: "/#contact" },
   ];
 
@@ -50,7 +50,7 @@ export function Navigation() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 items-center">
           {navItems.map((item) => (
-            item.href.startsWith('/') ? (
+            item.href.startsWith('/') && !item.href.includes('#') ? (
               <Link
                 key={item.name}
                 to={item.href}
@@ -120,7 +120,7 @@ export function Navigation() {
         <div className="md:hidden absolute top-full left-0 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg p-4 border-t border-gray-100 dark:border-gray-800 animate-fade-in">
           <nav className="flex flex-col space-y-4">
             {navItems.map((item) => (
-              item.href.startsWith('/') ? (
+              item.href.startsWith('/') && !item.href.includes('#') ? (
                 <Link
                   key={item.name}
                   to={item.href}

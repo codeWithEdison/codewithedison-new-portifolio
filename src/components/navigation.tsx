@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { cn } from "@/lib/utils";
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from './theme-provider';
@@ -11,11 +12,12 @@ export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Home', href: "#home" },
-    { name: 'About', href: "#about" },
-    { name: 'Skills', href: "#skills" },
-    { name: 'Projects', href: "#projects" },
-    { name: 'Contact', href: "#contact" },
+    { name: 'Home', href: "/" },
+    { name: 'About', href: "/#about" },
+    { name: 'Skills', href: "/#skills" },
+    { name: 'Projects', href: "/#projects" },
+    { name: 'Training', href: "/training" },
+    { name: 'Contact', href: "/#contact" },
   ];
 
   // Change navbar styling on scroll
@@ -41,20 +43,30 @@ export function Navigation() {
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="text-xl font-bold heading-gradient">
+        <Link to="/" className="text-xl font-bold heading-gradient">
           CodeWithEdison
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 items-center">
           {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="nav-link dark:text-gray-300 dark:hover:text-blue-400"
-            >
-              {item.name}
-            </a>
+            item.href.startsWith('/') ? (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="nav-link dark:text-gray-300 dark:hover:text-blue-400"
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <a
+                key={item.name}
+                href={item.href}
+                className="nav-link dark:text-gray-300 dark:hover:text-blue-400"
+              >
+                {item.name}
+              </a>
+            )
           ))}
           
           {/* Theme Toggle */}
@@ -108,14 +120,25 @@ export function Navigation() {
         <div className="md:hidden absolute top-full left-0 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg p-4 border-t border-gray-100 dark:border-gray-800 animate-fade-in">
           <nav className="flex flex-col space-y-4">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="nav-link block px-4 py-2 text-center dark:text-gray-300 dark:hover:text-blue-400"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.name}
-              </a>
+              item.href.startsWith('/') ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="nav-link block px-4 py-2 text-center dark:text-gray-300 dark:hover:text-blue-400"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="nav-link block px-4 py-2 text-center dark:text-gray-300 dark:hover:text-blue-400"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              )
             ))}
           </nav>
         </div>

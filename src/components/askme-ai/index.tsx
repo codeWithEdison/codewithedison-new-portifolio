@@ -69,84 +69,29 @@ export const AskMeAI = () => {
     setIsLoading(true);
 
     try {
-      // Stream AI response from edge function
-      const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-assistant`;
-      
-      const response = await fetch(CHAT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({ 
+      // Call edge function using supabase client (non-streaming for simplicity)
+      const { data, error } = await supabase.functions.invoke('chat-assistant', {
+        body: { 
           messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
-        }),
+        },
       });
 
-      if (!response.ok) {
-        if (response.status === 429) {
-          throw new Error("Rate limit exceeded. Please try again later.");
-        }
-        if (response.status === 402) {
-          throw new Error("Service limit reached. Please try again later.");
-        }
-        throw new Error("Failed to get response from AI assistant");
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw new Error(error.message || "Failed to get response from AI assistant");
       }
 
-      if (!response.body) {
-        throw new Error("No response body");
-      }
-
-      // Create assistant message placeholder
-      const assistantMessageId = (Date.now() + 1).toString();
-      let assistantContent = "";
-      
-      setMessages(prev => [...prev, {
-        id: assistantMessageId,
-        role: 'assistant',
-        content: '',
-        timestamp: new Date(),
-      }]);
-
-      // Stream the response
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+      // For streaming, we get chunks back
+      if (data) {
+        // If we got a streaming response, handle it
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: data.response || data.message || "I received your message but couldn't generate a proper response.",
+          timestamp: new Date(),
+        };
         
-        buffer += decoder.decode(value, { stream: true });
-        
-        let newlineIndex: number;
-        while ((newlineIndex = buffer.indexOf("\n")) !== -1) {
-          let line = buffer.slice(0, newlineIndex);
-          buffer = buffer.slice(newlineIndex + 1);
-
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
-
-          const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") break;
-
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
-            if (content) {
-              assistantContent += content;
-              setMessages(prev => prev.map(m => 
-                m.id === assistantMessageId 
-                  ? { ...m, content: assistantContent }
-                  : m
-              ));
-            }
-          } catch {
-            buffer = line + "\n" + buffer;
-            break;
-          }
-        }
+        setMessages(prev => [...prev, assistantMessage]);
       }
       
     } catch (error) {

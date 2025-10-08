@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, stream = false } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
@@ -199,7 +199,7 @@ ${contextInfo}`;
           { role: "system", content: systemPrompt },
           ...messages,
         ],
-        stream: true,
+        stream,
       }),
     });
 
@@ -224,14 +224,28 @@ ${contextInfo}`;
       throw new Error(`AI gateway error: ${errorText}`);
     }
 
-    return new Response(response.body, {
-      headers: { 
-        ...corsHeaders, 
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-      },
-    });
+    // If streaming is requested, return the stream
+    if (stream) {
+      return new Response(response.body, {
+        headers: { 
+          ...corsHeaders, 
+          "Content-Type": "text/event-stream",
+          "Cache-Control": "no-cache",
+          "Connection": "keep-alive",
+        },
+      });
+    }
+
+    // Otherwise, return the complete response
+    const data = await response.json();
+    const assistantMessage = data.choices?.[0]?.message?.content || "I couldn't generate a response.";
+    
+    return new Response(
+      JSON.stringify({ response: assistantMessage }), 
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
     console.error("chat-assistant error:", error);
     return new Response(

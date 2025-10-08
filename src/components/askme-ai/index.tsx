@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 import { useTheme } from '@/components/theme-provider';
-import { aiService } from '@/services/aiService'; 
+import { supabase } from '@/integrations/supabase/client';
 
 type Message = {
   id: string;
@@ -69,25 +69,96 @@ export const AskMeAI = () => {
     setIsLoading(true);
 
     try {
-      // Get AI response from our service instead of the mock function
-      const response = await aiService.generateResponse(updatedMessages);
+      // Stream AI response from edge function
+      const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-assistant`;
       
-      // Add AI message
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
+      const response = await fetch(CHAT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({ 
+          messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
+        }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error("Rate limit exceeded. Please try again later.");
+        }
+        if (response.status === 402) {
+          throw new Error("Service limit reached. Please try again later.");
+        }
+        throw new Error("Failed to get response from AI assistant");
+      }
+
+      if (!response.body) {
+        throw new Error("No response body");
+      }
+
+      // Create assistant message placeholder
+      const assistantMessageId = (Date.now() + 1).toString();
+      let assistantContent = "";
+      
+      setMessages(prev => [...prev, {
+        id: assistantMessageId,
         role: 'assistant',
-        content: response,
+        content: '',
         timestamp: new Date(),
-      };
+      }]);
+
+      // Stream the response
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        buffer += decoder.decode(value, { stream: true });
+        
+        let newlineIndex: number;
+        while ((newlineIndex = buffer.indexOf("\n")) !== -1) {
+          let line = buffer.slice(0, newlineIndex);
+          buffer = buffer.slice(newlineIndex + 1);
+
+          if (line.endsWith("\r")) line = line.slice(0, -1);
+          if (line.startsWith(":") || line.trim() === "") continue;
+          if (!line.startsWith("data: ")) continue;
+
+          const jsonStr = line.slice(6).trim();
+          if (jsonStr === "[DONE]") break;
+
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+            if (content) {
+              assistantContent += content;
+              setMessages(prev => prev.map(m => 
+                m.id === assistantMessageId 
+                  ? { ...m, content: assistantContent }
+                  : m
+              ));
+            }
+          } catch {
+            buffer = line + "\n" + buffer;
+            break;
+          }
+        }
+      }
       
-      setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to get a response. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to get a response. Please try again.",
         variant: "destructive",
       });
       console.error('AI response error:', error);
+      
+      // Remove the user message on error
+      setMessages(prev => prev.filter(m => m.id !== userMessage.id));
     } finally {
       setIsLoading(false);
     }

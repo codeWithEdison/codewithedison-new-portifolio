@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 import { useTheme } from '@/components/theme-provider';
+import ReactMarkdown from 'react-markdown';
 
 type Message = {
   id: string;
@@ -265,7 +266,23 @@ export const AskMeAI = () => {
                           : "bg-gray-100 text-gray-800"
                       )}
                     >
-                      <p className="text-sm whitespace-pre-line">{message.content}</p>
+                      <div className="text-sm prose prose-sm max-w-none dark:prose-invert prose-p:my-2 prose-strong:font-bold prose-strong:text-inherit">
+                        {message.role === "assistant" ? (
+                          <ReactMarkdown
+                            components={{
+                              p: ({ children }) => <p className="my-1">{children}</p>,
+                              strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+                              ul: ({ children }) => <ul className="my-2 ml-4 list-disc">{children}</ul>,
+                              ol: ({ children }) => <ol className="my-2 ml-4 list-decimal">{children}</ol>,
+                              li: ({ children }) => <li className="my-1">{children}</li>,
+                            }}
+                          >
+                            {message.content}
+                          </ReactMarkdown>
+                        ) : (
+                          <p className="whitespace-pre-line">{message.content}</p>
+                        )}
+                      </div>
                       <p className="text-[10px] opacity-70 mt-1">
                         {message.timestamp.toLocaleTimeString([], {
                           hour: "2-digit",

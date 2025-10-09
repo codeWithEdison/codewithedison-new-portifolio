@@ -183,6 +183,8 @@ IMPORTANT GUIDELINES:
 - If someone wants to apply or needs more details, direct them to WhatsApp (+250788240303) or email (edsnknv@gmail.com)
 - If you don't have specific information, suggest contacting Edison directly
 - Keep responses conversational and professional
+- Use markdown formatting in your responses: **bold** for emphasis, bullet points for lists, etc.
+- Structure your responses with clear formatting to make them easy to read
 
 Context Information:
 ${contextInfo}`;

@@ -8,7 +8,6 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 import { useTheme } from '@/components/theme-provider';
-import { supabase } from '@/integrations/supabase/client';
 
 type Message = {
   id: string;
@@ -69,30 +68,32 @@ export const AskMeAI = () => {
     setIsLoading(true);
 
     try {
-      // Call edge function using supabase client (non-streaming for simplicity)
-      const { data, error } = await supabase.functions.invoke('chat-assistant', {
-        body: { 
-          messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
+      // Call edge function directly with fetch
+      const response = await fetch('https://irbypuxccgospzwwdfpv.supabase.co/functions/v1/chat-assistant', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlyYnlwdXhjY2dvc3B6d3dkZnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk5MzQ3NDcsImV4cCI6MjA3NTUxMDc0N30.L1skH8ZQXVFlRd6y3Ib9pI-IyzRLxalk-lHc4IQkEUE`
         },
+        body: JSON.stringify({
+          messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
+        }),
       });
 
-      if (error) {
-        console.error('Supabase function error:', error);
-        throw new Error(error.message || "Failed to get response from AI assistant");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to get response from AI assistant");
       }
 
-      // For streaming, we get chunks back
-      if (data) {
-        // If we got a streaming response, handle it
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          role: 'assistant',
-          content: data.response || data.message || "I received your message but couldn't generate a proper response.",
-          timestamp: new Date(),
-        };
-        
-        setMessages(prev => [...prev, assistantMessage]);
-      }
+      const data = await response.json();
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: data.response || data.message || "I received your message but couldn't generate a proper response.",
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, assistantMessage]);
       
     } catch (error) {
       toast({

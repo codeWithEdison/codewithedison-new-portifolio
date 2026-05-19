@@ -12,6 +12,7 @@ import { InteractiveParticles } from '../components/interactive-particles';
 import { Button } from '../components/ui/button';
 import { ChevronUp } from 'lucide-react';
 import { AskMeAI } from '../components/askme-ai';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 const Index = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -79,7 +80,9 @@ const Index = () => {
       <Footer />
       
       {/* Ask Me AI Component */}
-      <AskMeAI />
+      <ErrorBoundary>
+        <AskMeAI />
+      </ErrorBoundary>
       
       {/* Scroll to top button */}
       <div 

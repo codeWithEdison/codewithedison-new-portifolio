@@ -9,6 +9,7 @@ import { ProgramFaq } from '../components/training/program-faq';
 import { ProgramCta } from '../components/training/program-cta';
 import { ProgramApplicationForm } from '../components/training/program-application-form';
 import { AskMeAI } from '../components/askme-ai';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 import TrainingPageMeta from '@/components/training/TrainingPageMeta';
 
 const TrainingProgram = () => {
@@ -69,7 +70,9 @@ const TrainingProgram = () => {
       <Footer />
       
       {/* Ask Me AI Component */}
-      <AskMeAI />
+      <ErrorBoundary>
+        <AskMeAI />
+      </ErrorBoundary>
     </div>
   );
 };

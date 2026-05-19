@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 import { useTheme } from '@/components/theme-provider';
-import { aiService } from '@/services/aiService'; 
+import ReactMarkdown from 'react-markdown';
 
 type Message = {
   id: string;
@@ -69,25 +69,43 @@ export const AskMeAI = () => {
     setIsLoading(true);
 
     try {
-      // Get AI response from our service instead of the mock function
-      const response = await aiService.generateResponse(updatedMessages);
-      
-      // Add AI message
-      const aiMessage: Message = {
+      // Call edge function directly with fetch
+      const response = await fetch('https://irbypuxccgospzwwdfpv.supabase.co/functions/v1/chat-assistant', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlyYnlwdXhjY2dvc3B6d3dkZnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk5MzQ3NDcsImV4cCI6MjA3NTUxMDc0N30.L1skH8ZQXVFlRd6y3Ib9pI-IyzRLxalk-lHc4IQkEUE`
+        },
+        body: JSON.stringify({
+          messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to get response from AI assistant");
+      }
+
+      const data = await response.json();
+      const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: response,
+        content: data.response || data.message || "I received your message but couldn't generate a proper response.",
         timestamp: new Date(),
       };
       
-      setMessages(prev => [...prev, aiMessage]);
+      setMessages(prev => [...prev, assistantMessage]);
+      
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to get a response. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to get a response. Please try again.",
         variant: "destructive",
       });
       console.error('AI response error:', error);
+      
+      // Remove the user message on error
+      setMessages(prev => prev.filter(m => m.id !== userMessage.id));
     } finally {
       setIsLoading(false);
     }
@@ -248,7 +266,23 @@ export const AskMeAI = () => {
                           : "bg-gray-100 text-gray-800"
                       )}
                     >
-                      <p className="text-sm whitespace-pre-line">{message.content}</p>
+                      <div className="text-sm prose prose-sm max-w-none dark:prose-invert prose-p:my-2 prose-strong:font-bold prose-strong:text-inherit">
+                        {message.role === "assistant" ? (
+                          <ReactMarkdown
+                            components={{
+                              p: ({ children }) => <p className="my-1">{children}</p>,
+                              strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+                              ul: ({ children }) => <ul className="my-2 ml-4 list-disc">{children}</ul>,
+                              ol: ({ children }) => <ol className="my-2 ml-4 list-decimal">{children}</ol>,
+                              li: ({ children }) => <li className="my-1">{children}</li>,
+                            }}
+                          >
+                            {message.content}
+                          </ReactMarkdown>
+                        ) : (
+                          <p className="whitespace-pre-line">{message.content}</p>
+                        )}
+                      </div>
                       <p className="text-[10px] opacity-70 mt-1">
                         {message.timestamp.toLocaleTimeString([], {
                           hour: "2-digit",
